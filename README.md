@@ -6,9 +6,9 @@ The proposal describes a small classroom prototype. Progress Report No. 2 report
 
 ## Data and access
 
-The website is public when deployed, but each visitor's demo data is saved only in that visitor's browser using `localStorage`. Data is not private, centrally stored, or shared between visitors. Clearing the browser's site data removes it. Do not enter real student personal information.
+The website is public when deployed, but each visitor's demo data is saved only in that visitor's browser using `localStorage`. Data is not private, centrally stored, or shared between visitors. Clearing the browser's site data removes it. Do not enter sensitive identifiers or real attendance records.
 
-The initial browser visit seeds clearly fictional sample students and one active sample session. Later visits preserve the visitor's changes.
+The initial browser visit seeds the six student names supplied for this project and one active sample session. Roster names and simulated UIDs are visible to all visitors. Attendance records stay in each visitor's browser and are not sent to a server, but the demo has no login or access controls. Later visits preserve the visitor's changes.
 
 ## Run locally
 
@@ -93,7 +93,7 @@ jobs:
         uses: actions/deploy-pages@v4
 ```
 
-The included `.nojekyll` marker is copied into `dist` so GitHub Pages serves the static output as-is. No production code hardcodes a localhost URL. The live site is published at [https://alainacastillo.github.io/tapin-attendance-demo/](https://alainacastillo.github.io/tapin-attendance-demo/) after the first successful Pages deployment.
+The included `.nojekyll` marker is copied into `dist` so GitHub Pages serves the static output as-is. No production code hardcodes a localhost URL. The live site is published at [https://alainacastillo.github.io/TapIn_RFID_attendance/](https://alainacastillo.github.io/TapIn_RFID_attendance/).
 
 ## Included functionality
 
