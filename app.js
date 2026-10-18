@@ -1,18 +1,25 @@
 /* TapIn browser-only demonstration. All records are local to this browser. */
 const STORE='tapin-demo-v1';
 const seed={students:[
-  {id:'STU-2026-001',name:'Mia Santos',uid:'A3 7F 91 2C',section:'CPE-401',status:'Active',registered:'2026-09-08'},
-  {id:'STU-2026-002',name:'Ethan Reyes',uid:'B8 14 6D A0',section:'CPE-401',status:'Active',registered:'2026-09-08'},
-  {id:'STU-2026-003',name:'Sofia Cruz',uid:'C1 55 9E 73',section:'CPE-401',status:'Active',registered:'2026-09-09'},
-  {id:'STU-2026-004',name:'Noah Garcia',uid:'D4 2B 80 F1',section:'CPE-401',status:'Active',registered:'2026-09-09'},
-  {id:'STU-2026-005',name:'Isabella Flores',uid:'E6 90 3A 17',section:'CPE-401',status:'Active',registered:'2026-09-10'},
-  {id:'STU-2026-006',name:'Liam Mendoza',uid:'F2 48 C7 05',section:'CPE-401',status:'Active',registered:'2026-09-10'},
-  {id:'STU-2026-007',name:'Ava Castillo',uid:'10 A9 62 D4',section:'CPE-401',status:'Active',registered:'2026-09-11'},
-  {id:'STU-2026-008',name:'Lucas Ramos',uid:'29 3D B1 88',section:'CPE-401',status:'Active',registered:'2026-09-11'}
+  {id:'STU-2026-001',name:'Banzuela, Aljon Ernest H.',uid:'A3 7F 91 2C',section:'CPE-401',status:'Active',registered:'2026-09-08'},
+  {id:'STU-2026-002',name:'David Jr., Reymon G.',uid:'B8 14 6D A0',section:'CPE-401',status:'Active',registered:'2026-09-08'},
+  {id:'STU-2026-003',name:'Ishii, Yuichiro L.',uid:'C1 55 9E 73',section:'CPE-401',status:'Active',registered:'2026-09-09'},
+  {id:'STU-2026-004',name:'Tuazon, Zephyr Cowen J.',uid:'D4 2B 80 F1',section:'CPE-401',status:'Active',registered:'2026-09-09'},
+  {id:'STU-2026-005',name:'Vasquez, Jhon Lerry Z.',uid:'E6 90 3A 17',section:'CPE-401',status:'Active',registered:'2026-09-10'},
+  {id:'STU-2026-006',name:'Viray, Princess Alaina T.',uid:'F2 48 C7 05',section:'CPE-401',status:'Active',registered:'2026-09-10'}
 ],sessions:[{id:'SES-001',name:'Embedded Systems Lab',section:'CPE-401',date:localDate(),start:'08:00',cutoff:'',status:'Active'}],records:[],events:[],settings:{initialized:true}};
 function localDate(d=new Date()){return new Date(d.getTime()-d.getTimezoneOffset()*60000).toISOString().slice(0,10)}
 function uid(){return 'ID-'+Math.random().toString(36).slice(2,9).toUpperCase()}
-function load(){try{const s=JSON.parse(localStorage.getItem(STORE));if(s&&s.students&&s.sessions&&s.records)return s}catch(e){}localStorage.setItem(STORE,JSON.stringify(seed));return structuredClone(seed)}
+const legacyStudents=[
+  ['STU-2026-001','Mia Santos','Banzuela, Aljon Ernest H.','A3 7F 91 2C'],
+  ['STU-2026-002','Ethan Reyes','David Jr., Reymon G.','B8 14 6D A0'],
+  ['STU-2026-003','Sofia Cruz','Ishii, Yuichiro L.','C1 55 9E 73'],
+  ['STU-2026-004','Noah Garcia','Tuazon, Zephyr Cowen J.','D4 2B 80 F1'],
+  ['STU-2026-005','Isabella Flores','Vasquez, Jhon Lerry Z.','E6 90 3A 17'],
+  ['STU-2026-006','Liam Mendoza','Viray, Princess Alaina T.','F2 48 C7 05']
+];
+function migrate(s){let changed=false;for(const [id,oldName,newName,card] of legacyStudents){const student=s.students.find(x=>x.id===id&&x.uid===card&&x.name===oldName);if(student){student.name=newName;changed=true}for(const record of s.records){if(record.studentRecordId===id&&record.studentName===oldName){record.studentName=newName;changed=true}}}for(const [id,name,card] of [['STU-2026-007','Ava Castillo','10 A9 62 D4'],['STU-2026-008','Lucas Ramos','29 3D B1 88']]){const index=s.students.findIndex(x=>x.id===id&&x.name===name&&x.uid===card);if(index!==-1){s.students.splice(index,1);changed=true}}if(changed)localStorage.setItem(STORE,JSON.stringify(s));return s}
+function load(){try{const s=JSON.parse(localStorage.getItem(STORE));if(s&&s.students&&s.sessions&&s.records)return migrate(s)}catch(e){}localStorage.setItem(STORE,JSON.stringify(seed));return structuredClone(seed)}
 let db=load(), page='dashboard', busy=false;
 const $=s=>document.querySelector(s), esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function save(){localStorage.setItem(STORE,JSON.stringify(db))}function toast(s){const t=$('#toast');t.textContent=s;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2400)}
