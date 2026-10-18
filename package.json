@@ -1,0 +1,7 @@
+{
+  "name": "tapin-attendance-demo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Browser-only TapIn RFID attendance simulation",
+  "scripts": { "build": "node build.mjs" }
+}

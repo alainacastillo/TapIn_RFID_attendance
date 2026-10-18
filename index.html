@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#101b2c" />
+  <meta name="description" content="TapIn demonstrates classroom attendance using a website-based RFID simulation." />
+  <title>TapIn | Attendance, made clear</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Main navigation">
+      <a class="brand" href="#dashboard" aria-label="TapIn dashboard"><span class="brand-mark">T</span><span>tap<span class="brand-light">in</span><small>CLASSROOM ATTENDANCE</small></span></a>
+      <div class="demo-label"><span class="pulse-dot"></span> WEBSITE SIMULATION</div>
+      <nav id="nav">
+        <a href="#dashboard" data-page="dashboard"><span>▦</span> Dashboard</a>
+        <a href="#scanner" data-page="scanner"><span>◉</span> RFID Simulator</a>
+        <a href="#students" data-page="students"><span>♙</span> Students</a>
+        <a href="#attendance" data-page="attendance"><span>▤</span> Attendance</a>
+        <a href="#sessions" data-page="sessions"><span>◷</span> Sessions</a>
+        <a href="#reports" data-page="reports"><span>▥</span> Reports</a>
+        <a href="#settings" data-page="settings"><span>⚙</span> Settings</a>
+      </nav>
+      <div class="sidebar-foot"><span class="avatar">AD</span><div><b>Demo administrator</b><small>Local browser data</small></div></div>
+    </aside>
+    <main class="main-area">
+      <header class="topbar"><div><span class="eyebrow">HOLY ANGEL UNIVERSITY · CPE 401</span><h1 id="page-title">Dashboard</h1></div><div class="top-actions"><span class="local-chip"><span class="green-dot"></span> Saved in this browser</span><button class="icon-btn" id="top-scan" aria-label="Open RFID simulator">◉</button></div></header>
+      <div class="content" id="content" tabindex="-1"></div>
+      <footer>TapIn · Academic project demonstration <span>Data stays in this browser and is not shared with other visitors.</span></footer>
+    </main>
+  </div>
+  <div id="toast" role="status" aria-live="polite" class="toast"></div>
+  <dialog id="modal" aria-labelledby="modal-title"><form method="dialog" id="modal-form"><button class="modal-close" aria-label="Close">×</button><div id="modal-body"></div></form></dialog>
+  <script src="./app.js" defer></script>
+</body>
+</html>
